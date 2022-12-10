@@ -1,5 +1,3 @@
-import { useTransition } from "react-spring";
-
 export const bottomRowSpringConfig = {
   from: { opacity: 0, y: 100 },
   to: { opacity: 1, y: 0 },

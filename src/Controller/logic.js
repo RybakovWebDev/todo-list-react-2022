@@ -123,7 +123,6 @@ const RenderWindowComponent = function (props) {
   const [fadeSpring, apiFade] = useSpring(() => ({ to: { opacity: 1, x: 0 }, from: { opacity: 0, x: 40 } }));
   const [fadeSpringClearAll, apiClearAll] = useSpring(() => bottomRowSpringConfig);
   const [fadeSpringClear, apiClear] = useSpring(() => bottomRowSpringConfig);
-  const [fadeSpringImport, apiImport] = useSpring(() => bottomRowSpringConfig);
   const [fadeSpringModal, apiModal] = useSpring(() => bottomRowSpringConfig);
   const [fadeOverlay, apiOverlay] = useSpring(() => fadeInConfig);
   const [fadeSpringLists, apiLists] = useSpring(() => bottomRowSpringConfig);
@@ -527,7 +526,7 @@ const RenderWindowComponent = function (props) {
           fadeSpring={fadeSpring}
           fadeSpringClearAll={fadeSpringClearAll}
           fadeSpringClear={fadeSpringClear}
-          fadeSpringImport={fadeSpringImport}
+          fadeSpringImport={fadeSpringClear}
           fadeSpringModal={fadeSpringModal}
           fadeOverlay={fadeOverlay}
           fadeSpringLists={fadeSpringLists}
