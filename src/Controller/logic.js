@@ -1,8 +1,5 @@
-import { logDOM } from "@testing-library/react";
-import anime from "animejs";
-
 import { useState } from "react";
-import { useTransition, animated, useSpring } from "react-spring";
+import { useTransition, useSpring } from "react-spring";
 import { TASKS_ARR, noteModel } from "../Model/config";
 import {
   bottomRowSpringConfig,
@@ -122,9 +119,6 @@ const RenderWindowComponent = function (props) {
   const [deleteTargetState, setDeleteTargetState] = useState();
   const [deleteState, setDeleteState] = useState(0);
 
-  ////////// React spring configs //////////
-  // *used to be here* //
-
   ////////// React spring animation hooks //////////
   const [fadeSpring, apiFade] = useSpring(() => ({ to: { opacity: 1, x: 0 }, from: { opacity: 0, x: 40 } }));
   const [fadeSpringClearAll, apiClearAll] = useSpring(() => bottomRowSpringConfig);
@@ -142,11 +136,6 @@ const RenderWindowComponent = function (props) {
     enter: { opacity: 1, maxHeight: "200px" },
     leave: { opacity: 0, maxHeight: "0px" },
     trail: 100,
-    // sort: (a, b) => {
-    //   return a.done - b.done;
-    // },
-    // update: ({ y }) => ({ y }),
-    // update: ({ opacity }) => ({ from: { opacity: 0.5 }, to: { opacity: 1 } }),
   });
 
   ////////// Left column button handlers //////////
@@ -301,7 +290,6 @@ const RenderWindowComponent = function (props) {
     if (dataFinalArr[0] !== /^[a-zA-Z]+$/) {
       dataFinalArr = dataFinalArr.slice(1);
     }
-    // console.log(dataFinalArr);
 
     // PUSH IMPORTED DATA INTO THE MAIN ARRAY
     console.log(TASKS_ARR);
@@ -311,6 +299,10 @@ const RenderWindowComponent = function (props) {
     console.log(TASKS_ARR);
     setArrState([...TASKS_ARR]);
     setLocalStorage(TASKS_ARR, "list");
+
+    // Close modal
+    apiOverlay.start(fadeOutConfig);
+    setTimeout(() => setModalOpen(false), 400);
   };
 
   ////////// Modal handler //////////
