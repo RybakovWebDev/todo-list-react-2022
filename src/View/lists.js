@@ -36,6 +36,7 @@ const RenderLists = ({
                     className='lists-name'
                     value={el.listName}
                     onChange={listsHandler}
+                    onKeyDown={listsHandler}
                     inputid={el.listID}
                     maxLength='45'
                   ></input>

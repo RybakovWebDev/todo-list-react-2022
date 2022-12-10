@@ -487,9 +487,14 @@ textarea::placeholder {
     /* border-top: #2bc6bc; */
     box-shadow: 0 -1px 0px rgba(0, 0, 0, 0.1);
     width: 100vw;
-    /* height: 10.5vh; */
+    height: 10vh;
     display: flex;
     justify-content: flex-end;
+    align-items: center;
+
+    position: fixed;
+    bottom: 0;
+    /* margin: 5rem 0 0 0; */
   }
 
   .task-list-column-cont {
@@ -514,7 +519,7 @@ textarea::placeholder {
   .task-list-text-area {
     padding: 0.5rem 0 0 0.5rem;
     border-radius: 1rem;
-    height: 5rem;
+    height: 4rem;
     font-size: 20px;
     font-weight: 400;
     font-family: "Roboto", sans-serif;
@@ -531,8 +536,8 @@ textarea::placeholder {
   }
 
   .task-list-button-column-container {
-    margin: 0 0.5rem 0 0.5rem;
-    width: 5%;
+    margin: 0 0 0 0.5rem;
+    /* width: 5%; */
     display: flex;
     flex-direction: column;
     align-content: center;
@@ -540,7 +545,8 @@ textarea::placeholder {
 
   .task-list__button {
     margin: 2rem 0 0 0;
-    height: 5rem;
+    height: 4rem;
+    width: 3rem;
     /* background-color: aliceblue; */
     color: aliceblue;
     border-radius: 100rem;
@@ -551,14 +557,12 @@ textarea::placeholder {
 
   .btn-bottom-cont {
     margin-bottom: auto;
-    width: 5rem;
-    display: flex;
-    flex-direction: column;
     margin: 1% 1% 1% 0;
   }
 
   .btn-bottom-menu {
-    height: 5rem;
+    width: 4.5rem;
+    height: 4.5rem;
     background-color: aliceblue;
     color: aliceblue;
     border-radius: 100%;
@@ -571,13 +575,8 @@ textarea::placeholder {
     font-weight: 400;
     font-family: "Montserrat", "Roboto", sans-serif;
     text-shadow: 1px 1px 10px rgba(0, 0, 0, 0.2);
-    font-size: 12px;
+    font-size: 10px;
     transition: 0.3s;
-  }
-
-  .btn-bottom-menu:hover {
-    /* border-radius: 30%; */
-    /* box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.9); */
   }
 
   .overlay {
@@ -647,7 +646,7 @@ textarea::placeholder {
     scrollbar-width: none; /* Firefox */
 
     pointer-events: auto;
-    margin: 0 0 8rem 0;
+    /* margin: 0 0 8rem 0; */
     padding: 1rem 1rem 0 0rem;
     min-height: 40%;
     max-height: 70%;
@@ -660,7 +659,7 @@ textarea::placeholder {
     align-items: center;
     background-color: #ffffff;
     box-shadow: 0 0 0.3rem 0 rgba(0, 0, 0, 0.5);
-    bottom: -16%;
+    bottom: 0;
   }
 
   .lists-container::-webkit-scrollbar {

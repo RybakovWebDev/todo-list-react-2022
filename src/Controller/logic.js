@@ -123,6 +123,7 @@ const RenderWindowComponent = function (props) {
   const [fadeSpring, apiFade] = useSpring(() => ({ to: { opacity: 1, x: 0 }, from: { opacity: 0, x: 40 } }));
   const [fadeSpringClearAll, apiClearAll] = useSpring(() => bottomRowSpringConfig);
   const [fadeSpringClear, apiClear] = useSpring(() => bottomRowSpringConfig);
+  const [fadeSpringImport, apiImport] = useSpring(() => bottomRowSpringConfig);
   const [fadeSpringModal, apiModal] = useSpring(() => bottomRowSpringConfig);
   const [fadeOverlay, apiOverlay] = useSpring(() => fadeInConfig);
   const [fadeSpringLists, apiLists] = useSpring(() => bottomRowSpringConfig);
@@ -132,7 +133,7 @@ const RenderWindowComponent = function (props) {
   ////////// React spring transition hook //////////
   const transitionsTaskList = useTransition(arrState, {
     from: { opacity: 0, maxHeight: "0px" },
-    enter: { opacity: 1, maxHeight: "200px" },
+    enter: { opacity: 1, maxHeight: "150px" },
     leave: { opacity: 0, maxHeight: "0px" },
     trail: 100,
   });
@@ -307,9 +308,8 @@ const RenderWindowComponent = function (props) {
   ////////// Modal handler //////////
 
   const modalHandler = function (e) {
-    // console.log(e.target);
-
     if (e.target.className === "btn-bottom-menu gradient-background") {
+      apiImport.start(btnClickSpringConfig);
       setModalOpen(true);
       apiOverlay.start(fadeInConfig);
       apiModal.start(bottomRowSpringConfig);
@@ -378,12 +378,6 @@ const RenderWindowComponent = function (props) {
       const listsStorageArray = JSON.parse(localStorage.getItem("listsStorage"));
       const findByID = listsStorageArray.find((e) => e.listID === targetListID);
       setCurListNameState(findByID.listName);
-
-      ////////////////////////////
-      // WHY DOES IT WORK WHEN SELECTING, BUT BREAKS WHEN UPDATING? Must be something wrong with selection since not all updates work equally,
-      // but it breaks anyway when done enough times. Selection must be emptying array at wrong moment, and then replacing it? Sigh
-      // * Turns out the problem was in the update lists function *
-      ////////////////////////////
 
       // If selected list is empty, delay emptying the current array to fade out bottom clear buttons
       if (findByID.listArr.length === 0) {
@@ -483,16 +477,20 @@ const RenderWindowComponent = function (props) {
     // EDIT list entry name
     if (e.target?.className === "lists-name") {
       // console.log(e.target.value);
-      // console.log(e.keyCode);
+      // console.log(e.type);
       LISTS_ARR[targetListIndex].listName = e.target.value;
       if (activeList === targetListID) setCurListNameState(LISTS_ARR[targetListIndex].listName);
       setListsState([...LISTS_ARR]);
       setLocalStorage(LISTS_ARR, "listsStorage");
       deletionReset();
     }
+    if (e.target?.className === "lists-name" && e?.key === "Enter") {
+      e.target.blur();
+      console.log("Changing focus");
+    }
 
-    // NEW list entry
     if (e.target?.className === "fa-solid fa-square-plus fa-3x") {
+      // NEW list entry
       addToListsArr("New List", []);
       activeList = LISTS_ARR[LISTS_ARR.length - 1].listID;
       setListsState([...LISTS_ARR]);
@@ -526,7 +524,7 @@ const RenderWindowComponent = function (props) {
           fadeSpring={fadeSpring}
           fadeSpringClearAll={fadeSpringClearAll}
           fadeSpringClear={fadeSpringClear}
-          fadeSpringImport={fadeSpringClear}
+          fadeSpringImport={fadeSpringImport}
           fadeSpringModal={fadeSpringModal}
           fadeOverlay={fadeOverlay}
           fadeSpringLists={fadeSpringLists}
