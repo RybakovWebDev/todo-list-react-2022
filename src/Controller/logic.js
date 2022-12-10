@@ -18,7 +18,7 @@ import Lists from "../View/lists";
 // test list: one, TWO, Three, fOur, twenty five,and this
 
 let storedActiveListVar = JSON.parse(localStorage.getItem("storedActiveList"));
-console.log("First log, stored active list on load:", storedActiveListVar);
+// console.log("First log, stored active list on load:", storedActiveListVar);
 let LISTS_ARR;
 let activeList = storedActiveListVar ? storedActiveListVar : "";
 
@@ -87,8 +87,8 @@ if (!JSON.parse(localStorage.getItem("listsStorage"))) {
 }
 
 if (activeList === "") {
-  console.log("Active list empty so changing it to first lists arr element id");
-  console.log("Lists arr in the meantime is:", LISTS_ARR);
+  // console.log("Active list empty so changing it to first lists arr element id");
+  // console.log("Lists arr in the meantime is:", LISTS_ARR);
   setLocalStorage(LISTS_ARR[0].listID, "storedActiveList");
 }
 
@@ -141,9 +141,9 @@ const RenderWindowComponent = function (props) {
   const handleBtnNew = function (e) {
     addTask();
     setArrState([...TASKS_ARR]);
-    console.log("This is arrState:", arrState);
-    console.log("This is TASKS ARR after pressing new:", TASKS_ARR);
-    console.log("activeList after pressing new button:", activeList);
+    // console.log("This is arrState:", arrState);
+    // console.log("This is TASKS ARR after pressing new:", TASKS_ARR);
+    // console.log("activeList after pressing new button:", activeList);
     setLocalStorage(TASKS_ARR, "list");
     updateListsArr();
     apiFade.start({ from: { y: 10 }, to: { y: 0 } });
@@ -170,7 +170,7 @@ const RenderWindowComponent = function (props) {
     const filterMarked = TASKS_ARR.filter((e) => e.done === 1);
     const filterUnMarked = TASKS_ARR.filter((e) => e.done === 0);
     const markedTask = TASKS_ARR[entryIndex];
-    console.log(markedTask);
+    // console.log(markedTask);
     // console.log(TASKS_ARR.length);
 
     // Move marked tasks below, to other marked tasks
@@ -209,7 +209,7 @@ const RenderWindowComponent = function (props) {
     let entryIndex = arrState.findIndex((e) => e.id === entryID);
     // setInput(e.target.value);
     arrState[entryIndex].text = e.target.value;
-    console.log("arrState after input:", arrState);
+    // console.log("arrState after input:", arrState);
     setLocalStorage(TASKS_ARR, "list");
     updateListsArr();
   };
@@ -273,7 +273,7 @@ const RenderWindowComponent = function (props) {
   ////////// List import handler //////////
 
   const handleDataImport = async function (e) {
-    console.log("Handling import");
+    // console.log("Handling import");
     e.stopPropagation(); // make modal stay open when clicked on
     const data = await navigator.clipboard.readText();
     const dataFiltered = data.replace(/(\r\n|\n|\r)/gm, ",").split(/[-_,]+/); // Replace line breaks with a ',', then split by '-', '_', or ','
@@ -291,11 +291,11 @@ const RenderWindowComponent = function (props) {
     }
 
     // PUSH IMPORTED DATA INTO THE MAIN ARRAY
-    console.log(TASKS_ARR);
+    // console.log(TASKS_ARR);
     dataFinalArr.forEach((el) => {
       addTask(el);
     });
-    console.log(TASKS_ARR);
+    // console.log(TASKS_ARR);
     setArrState([...TASKS_ARR]);
     setLocalStorage(TASKS_ARR, "list");
 
@@ -307,7 +307,7 @@ const RenderWindowComponent = function (props) {
   ////////// Modal handler //////////
 
   const modalHandler = function (e) {
-    console.log(e.target);
+    // console.log(e.target);
 
     if (e.target.className === "btn-bottom-menu gradient-background") {
       setModalOpen(true);
@@ -334,9 +334,9 @@ const RenderWindowComponent = function (props) {
       TASKS_ARR.push(...findByID.listArr);
       setLocalStorage(TASKS_ARR, "list");
       setArrState([...TASKS_ARR]);
-      console.log("List replaced");
+      // console.log("List replaced");
     };
-    console.log(e.target);
+    // console.log(e.target);
 
     // Open the lists popup menu
     if (
@@ -348,12 +348,12 @@ const RenderWindowComponent = function (props) {
       apiOverlay.start(fadeInConfig);
       apiModal.start(bottomRowSpringConfig);
       // console.log(e.target);
-      console.log("Clicked lists button");
+      // console.log("Clicked lists button");
       e.stopPropagation();
     }
 
     const targetListID = e.target.getAttribute("inputid");
-    console.log("Target ID is:", targetListID);
+    // console.log("Target ID is:", targetListID);
 
     // Set button target state
     if (targetListID === null) setBtnTargetState(LISTS_ARR.find((el) => el.listID === activeList).listID);
@@ -366,7 +366,7 @@ const RenderWindowComponent = function (props) {
       activeList !== targetListID &&
       e.target.closest("button")?.className === "btn-lists-select"
     ) {
-      console.log("Selecting new list");
+      // console.log("Selecting new list");
       activeList = targetListID;
       setBtnTargetState(targetListID);
       apiSelect.start(btnClickSpringConfig);
@@ -388,8 +388,8 @@ const RenderWindowComponent = function (props) {
       // If selected list is empty, delay emptying the current array to fade out bottom clear buttons
       if (findByID.listArr.length === 0) {
         setClearBtnsVisibleState(0);
-        console.log("Fading out!");
-        console.log(findByID.listArr.length);
+        // console.log("Fading out!");
+        // console.log(findByID.listArr.length);
         apiClearAll.start(fadeOutConfig);
         apiClear.start(fadeOutConfig);
         setClearBtnsVisibleState(0);
@@ -403,7 +403,7 @@ const RenderWindowComponent = function (props) {
 
       // Fade in clear tasks buttons if selected array is != empty
       if (TASKS_ARR.length !== 0 && clearBtnsVisibleState === 0) {
-        console.log("Fading IN!");
+        // console.log("Fading IN!");
         apiClearAll.start(fadeInConfig);
         apiClear.start(fadeInConfig);
         setClearBtnsVisibleState(1);
@@ -416,7 +416,7 @@ const RenderWindowComponent = function (props) {
     ) {
       setBtnTargetState(targetListID);
       apiSelect.start(btnBlinkDeniedConfig);
-      console.log("clicked self");
+      // console.log("clicked self");
       deletionReset();
     }
 
@@ -429,7 +429,7 @@ const RenderWindowComponent = function (props) {
       deleteState === 1 &&
       deleteTargetState === targetListID
     ) {
-      console.log("Deleting list entry");
+      // console.log("Deleting list entry");
       deleteFromListsArr(targetListIndex);
       setListsState([...LISTS_ARR]);
       setLocalStorage(LISTS_ARR, "listsStorage");
@@ -444,7 +444,7 @@ const RenderWindowComponent = function (props) {
       deleteState === 0
     ) {
       setDeleteTargetState(targetListID);
-      console.log("Deleting list entry CONFIRMATION");
+      // console.log("Deleting list entry CONFIRMATION");
       apiBlink.start(redWarningConfig);
       setDeleteState(1);
     }
@@ -457,7 +457,7 @@ const RenderWindowComponent = function (props) {
     ) {
       deletionReset();
       setDeleteTargetState(targetListID);
-      console.log("Deleting list entry CONFIRMATION(2)");
+      // console.log("Deleting list entry CONFIRMATION(2)");
       apiBlink.start(redWarningConfig);
       setDeleteState(1);
     }
@@ -465,7 +465,7 @@ const RenderWindowComponent = function (props) {
     // Reset delete confirmation if clicked in lists container
     if (e.target.className === "lists-container" || targetListID === null) {
       deletionReset();
-      console.log("Clicked container reversing delete");
+      // console.log("Clicked container reversing delete");
     }
 
     // Trying to delete selected list
@@ -475,7 +475,7 @@ const RenderWindowComponent = function (props) {
       activeList === targetListID
     ) {
       setDeleteTargetState(targetListID);
-      console.log("Can't delete, currently in this list.");
+      // console.log("Can't delete, currently in this list.");
       apiBlink.start(btnBlinkDeniedConfig);
       setDeleteState(0);
     }
