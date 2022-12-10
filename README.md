@@ -1,6 +1,6 @@
-# ToDo list application using local storage written in React.
+# ToDo list application using local storage written in React
 
-![ToDo list app preview image](/src/Images/App_Demo_Screenshot.png)
+<img src="/src/Images/App_Demo_Screenshot.png" width=50% height=50%>
 
 ## A simple, minimalist, responsive React to do list app that saves data to local browser storage.
 
