@@ -141,14 +141,44 @@ const RenderWindowComponent = function (props) {
 
   ////////// Left column button handlers //////////
   const handleBtnNew = function (e) {
-    addTask();
-    setArrState([...TASKS_ARR]);
-    // console.log("This is arrState:", arrState);
-    // console.log("This is TASKS ARR after pressing new:", TASKS_ARR);
-    // console.log("activeList after pressing new button:", activeList);
-    setLocalStorage(TASKS_ARR, "list");
-    updateListsArr();
-    apiFade.start({ from: { y: 10 }, to: { y: 0 } });
+    const filterMarked = TASKS_ARR.filter((e) => e.done === 1);
+    const filterUnMarked = TASKS_ARR.filter((e) => e.done === 0);
+
+    if (TASKS_ARR[TASKS_ARR.length - 1]?.done === 0) {
+      addTask();
+      setArrState([...TASKS_ARR]);
+      // console.log("This is arrState:", arrState);
+      // console.log("This is TASKS ARR after pressing new:", TASKS_ARR);
+      // console.log("activeList after pressing new button:", activeList);
+      setLocalStorage(TASKS_ARR, "list");
+      updateListsArr();
+      apiFade.start({ from: { y: 10 }, to: { y: 0 } });
+    }
+
+    if (TASKS_ARR[TASKS_ARR.length - 1]?.done === 1) {
+      TASKS_ARR.length = 0;
+      TASKS_ARR.push(...filterUnMarked);
+      addTask();
+      addTask(filterMarked[0].text, 1);
+      filterMarked.shift();
+      TASKS_ARR.push(...filterMarked);
+      setArrState([...TASKS_ARR]);
+      setLocalStorage(TASKS_ARR, "list");
+      updateListsArr();
+      setListsState([...LISTS_ARR]);
+      apiFade.start({ from: { opacity: 0, y: 0 }, to: { opacity: 1, y: 0 } });
+    }
+
+    if (TASKS_ARR.length === 0) {
+      addTask();
+      setArrState([...TASKS_ARR]);
+      // console.log("This is arrState:", arrState);
+      // console.log("This is TASKS ARR after pressing new:", TASKS_ARR);
+      // console.log("activeList after pressing new button:", activeList);
+      setLocalStorage(TASKS_ARR, "list");
+      updateListsArr();
+      apiFade.start({ from: { y: 10 }, to: { y: 0 } });
+    }
 
     // Fade in clear tasks buttons if tasks array is != empty
     if (TASKS_ARR.length === 1) {
