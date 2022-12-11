@@ -82,6 +82,7 @@ if (!JSON.parse(localStorage.getItem("listsStorage"))) {
     },
   ];
   setLocalStorage(LISTS_ARR, "listsStorage");
+  window.location.reload();
 } else {
   LISTS_ARR = JSON.parse(localStorage.getItem("listsStorage"));
 }
@@ -486,7 +487,7 @@ const RenderWindowComponent = function (props) {
     }
     if (e.target?.className === "lists-name" && e?.key === "Enter") {
       e.target.blur();
-      console.log("Changing focus");
+      // console.log("Changing focus");
     }
 
     if (e.target?.className === "fa-solid fa-square-plus fa-3x") {
