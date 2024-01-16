@@ -299,6 +299,7 @@ const RenderWindowComponent = function (props) {
       TASKS_ARR.length = 0;
       setArrState([...TASKS_ARR]);
       setLocalStorage(TASKS_ARR, "list");
+      updateListsArr();
     }, 200);
   };
 
