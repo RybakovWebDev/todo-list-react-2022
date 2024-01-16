@@ -310,6 +310,7 @@ const RenderWindowComponent = function (props) {
     const data = await navigator.clipboard.readText();
     const dataFiltered = data.replace(/(\r\n|\n|\r)/gm, ",").split(/[-_,]+/); // Replace line breaks with a ',', then split by '-', '_', or ','
     let dataFinalArr = dataFiltered.map((el) => {
+      el = el.trim();
       if (el.charAt(0) === " ") {
         return el.charAt(1).toUpperCase() + el.slice(2).toLowerCase();
       } else {
@@ -317,10 +318,8 @@ const RenderWindowComponent = function (props) {
       }
     });
 
-    // If first character is not a letter, remove it. This is for accidental spaces before words
-    if (dataFinalArr[0] !== /^[a-zA-Z]+$/) {
-      dataFinalArr = dataFinalArr.slice(1);
-    }
+    // Check if TASKS_ARR was empty before import
+    const wasEmptyBeforeImport = TASKS_ARR.length === 0;
 
     // PUSH IMPORTED DATA INTO THE MAIN ARRAY
     // console.log(TASKS_ARR);
@@ -330,6 +329,15 @@ const RenderWindowComponent = function (props) {
     // console.log(TASKS_ARR);
     setArrState([...TASKS_ARR]);
     setLocalStorage(TASKS_ARR, "list");
+
+    // Check if TASKS_ARR is not empty after import
+    const isNotEmptyAfterImport = TASKS_ARR.length > 0;
+
+    // If TASKS_ARR was empty before import and is not empty after import, run the code
+    if (wasEmptyBeforeImport && isNotEmptyAfterImport) {
+      apiClearAll.start(fadeInConfig);
+      apiClear.start(fadeInConfig);
+    }
 
     // Close modal
     apiOverlay.start(fadeOutConfig);
