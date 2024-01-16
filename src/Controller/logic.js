@@ -309,7 +309,10 @@ const RenderWindowComponent = function (props) {
     // console.log("Handling import");
     e.stopPropagation(); // make modal stay open when clicked on
     const data = await navigator.clipboard.readText();
-    const dataFiltered = data.replace(/(\r\n|\n|\r)/gm, ",").split(/[-_,]+/); // Replace line breaks with a ',', then split by '-', '_', or ','
+    const dataFiltered = data
+      .replace(/(\r\n|\n|\r)/gm, ",")
+      .split(/[-_,]+/)
+      .filter((el) => el.trim() !== ""); // Replace line breaks with a ',', then split by '-', '_', or ','
     let dataFinalArr = dataFiltered.map((el) => {
       el = el.trim();
       if (el.charAt(0) === " ") {
