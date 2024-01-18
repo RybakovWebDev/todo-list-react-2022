@@ -39,7 +39,7 @@ const addToListsArr = function (name, arr) {
     listID: uuidv4(),
   };
   LISTS_ARR.push(obj);
-
+  console.log("Added this list: ", obj);
   setLocalStorage(LISTS_ARR, "listsStorage");
 };
 
@@ -147,9 +147,6 @@ const RenderWindowComponent = function (props) {
     if (TASKS_ARR[TASKS_ARR.length - 1]?.done === 0) {
       addTask();
       setArrState([...TASKS_ARR]);
-      // console.log("This is arrState:", arrState);
-      // console.log("This is TASKS ARR after pressing new:", TASKS_ARR);
-      // console.log("activeList after pressing new button:", activeList);
       setLocalStorage(TASKS_ARR, "list");
       updateListsArr();
       apiFade.start({ from: { y: 10 }, to: { y: 0 } });
@@ -535,15 +532,20 @@ const RenderWindowComponent = function (props) {
     if (e.target?.className === "fa-solid fa-square-plus fa-3x") {
       // NEW list entry
       addToListsArr("New List", []);
+      console.log("Setting active list to: ", LISTS_ARR[LISTS_ARR.length - 1].listID);
       activeList = LISTS_ARR[LISTS_ARR.length - 1].listID;
       setListsState([...LISTS_ARR]);
       TASKS_ARR.splice(0, TASKS_ARR.length);
       addTask();
       setArrState([...TASKS_ARR]);
       setLocalStorage(TASKS_ARR, "list");
+      updateListsArr();
       setLocalStorage(LISTS_ARR, "listsStorage");
       setLocalStorage(activeList, "storedActiveList");
       setBtnTargetState(activeList);
+      const listsStorageArray = JSON.parse(localStorage.getItem("listsStorage"));
+      const findByID = listsStorageArray.find((e) => e.listID === activeList);
+      setCurListNameState(findByID.listName);
       deletionReset();
     }
 
