@@ -330,6 +330,7 @@ const RenderWindowComponent = function (props) {
     // console.log(TASKS_ARR);
     setArrState([...TASKS_ARR]);
     setLocalStorage(TASKS_ARR, "list");
+    updateListsArr();
 
     // Check if TASKS_ARR is not empty after import
     const isNotEmptyAfterImport = TASKS_ARR.length > 0;
