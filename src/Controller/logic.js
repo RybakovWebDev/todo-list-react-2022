@@ -88,8 +88,6 @@ if (!JSON.parse(localStorage.getItem("listsStorage"))) {
 }
 
 if (activeList === "") {
-  // console.log("Active list empty so changing it to first lists arr element id");
-  // console.log("Lists arr in the meantime is:", LISTS_ARR);
   setLocalStorage(LISTS_ARR[0].listID, "storedActiveList");
 }
 
@@ -169,9 +167,7 @@ const RenderWindowComponent = function (props) {
     if (TASKS_ARR.length === 0) {
       addTask();
       setArrState([...TASKS_ARR]);
-      // console.log("This is arrState:", arrState);
-      // console.log("This is TASKS ARR after pressing new:", TASKS_ARR);
-      // console.log("activeList after pressing new button:", activeList);
+
       setLocalStorage(TASKS_ARR, "list");
       updateListsArr();
       apiFade.start({ from: { y: 10 }, to: { y: 0 } });
@@ -199,8 +195,6 @@ const RenderWindowComponent = function (props) {
     const filterMarked = TASKS_ARR.filter((e) => e.done === 1);
     const filterUnMarked = TASKS_ARR.filter((e) => e.done === 0);
     const markedTask = TASKS_ARR[entryIndex];
-    // console.log(markedTask);
-    // console.log(TASKS_ARR.length);
 
     // Move marked tasks below, to other marked tasks
     if (markedTask.done === 1 && entryIndex !== TASKS_ARR.length - 1 && TASKS_ARR[entryIndex + 1].done !== 1) {
@@ -356,7 +350,7 @@ const RenderWindowComponent = function (props) {
       apiModal.start(bottomRowSpringConfig);
     }
 
-    if (e.target.className === "overlay") {
+    if (e.target.className === "overlay" || e.target.className === "modal--close") {
       apiOverlay.start(fadeOutConfig);
       setTimeout(() => setModalOpen(false), 400);
     }
