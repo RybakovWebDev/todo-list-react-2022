@@ -6,9 +6,9 @@ const RenderModal = ({ open, onClickHandler, getImportData, fadeModalSpringConfi
   return (
     <animated.div style={fadeOverlayConfig} className='overlay' onClick={onClickHandler}>
       <animated.div style={fadeModalSpringConfig} onClick={getImportData} className='modal-container'>
-        <p onClick={onClickHandler} className='modal--close'>
+        <button onClick={onClickHandler} className='modal--close'>
           X
-        </p>
+        </button>
         <div className='modal-content'>
           Click inside this modal to paste your list.
           <br></br>
