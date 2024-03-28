@@ -6,7 +6,7 @@
 
 ## A simple, minimalist, responsive React to-do list app that saves data to local browser storage.
 
-Live version deployed using Netlify can be viewed here: https://todo-list-react-2022.pages.dev/
+Live version deployed using Cloudflare Pages can be viewed here: https://todo-list-react-2022.pages.dev/
 
 Functionality includes:
 
